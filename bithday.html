@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday!</title>
+  <style>
+    /* 🎨 Step 3: CSS Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      /* Using a common sans-serif font */
+    }
+
+    body {
+      background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+      /* Pink/Peach gradient */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      color: #333;
+      /* Darker text for better contrast on light backgrounds */
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      /* Slightly less transparent white background */
+      padding: 40px 30px;
+      /* Increased padding */
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      /* Slightly adjusted shadow */
+      max-width: 450px;
+      /* Slightly wider container */
+      width: 100%;
+      animation: fadeIn 1.5s ease-in-out;
+      /* Adjusted fade-in duration */
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      /* Slightly larger heading */
+      margin-bottom: 15px;
+      color: #ff6f91;
+      /* Use a theme color for the heading */
+    }
+
+    p {
+      font-size: 1.15rem;
+      /* Slightly adjusted paragraph size */
+      margin-bottom: 25px;
+      line-height: 1.6;
+      /* Improved line spacing */
+    }
+
+    img {
+      max-width: 80%;
+      /* Make image slightly smaller than container */
+      height: auto;
+      /* Maintain aspect ratio */
+      border-radius: 10px;
+      margin-bottom: 25px;
+      animation: float 3s ease-in-out infinite;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      /* Subtle shadow for image */
+    }
+
+    button {
+      padding: 14px 30px;
+      /* Larger button padding */
+      font-size: 1.1rem;
+      /* Larger button font size */
+      border: none;
+      border-radius: 25px;
+      /* More rounded button */
+      background: #ff6f91;
+      /* Consistent theme color */
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      /* Added transform transition */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      background: #ff477e;
+      /* Darker shade on hover */
+      transform: translateY(-2px);
+      /* Slight lift effect on hover */
+    }
+
+    button:active {
+      transform: translateY(0px);
+      /* Press down effect */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #surprise {
+      font-size: 1.2rem;
+      color: #d6336c;
+      /* Different color for the surprise message */
+      animation: popIn 0.5s ease-out;
+      /* Animation for surprise text */
+    }
+
+    /* Keyframes */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+
+      /* Slightly more float */
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      img {
+        max-width: 70%;
+        /* Smaller image on small screens */
+      }
+
+      button {
+        padding: 12px 25px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🎂 Step 4: Birthday Content -->
+  <div class="container">
+    <h1>🎉 Happy Birthday, Sarah! 🎉</h1>
+    <!-- Using a placeholder image URL that's likely to stay active -->
+    <img
+      src="https://images.unsplash.com/photo-1587880119161-87bf85e69940?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+      alt="Colorful Balloons" />
+    <p>Wishing you a fantastic day filled with love, laughter, and lots of cake! 🍰🎈 May your year ahead be bright and
+      wonderful.</p>
+    <button id="surpriseButton" onclick="showSurprise()">Click for a Wish!</button>
+    <p id="surprise" style="display:none; margin-top: 20px; font-weight: bold;"></p>
+  </div>
+
+  <script>
+    // 💫 Step 5: JavaScript Interactivity
+    const surprise = document.getElementById("surprise");
+    const button = document.getElementById("surpriseButton");
+    const messages = [
+      "🎁 Hope your day is as amazing as you are!",
+      "🎊 Wishing you all the best on your special day!",
+      "🌟 May your birthday sparkle with joy and laughter!",
+      "🥳 Cheers to another fantastic year around the sun!",
+      "🎂 Have a slice of happiness (and cake!) today!",
+      "✨ You make the world a better place. Happy Birthday!",
+    ];
+    let usedMessages = []; // Keep track of messages shown
+
+    function showSurprise() {
+      if (usedMessages.length === messages.length) {
+        // Optional: Reset if all messages have been shown
+        usedMessages = [];
+      }
+
+      let randomIndex;
+      let newMessage;
+      do {
+        randomIndex = Math.floor(Math.random() * messages.length);
+        newMessage = messages[randomIndex];
+      } while (usedMessages.includes(newMessage) && messages.length > usedMessages.length); // Ensure a new message if possible
+
+      if (!usedMessages.includes(newMessage)) {
+        usedMessages.push(newMessage);
+      }
+
+      surprise.textContent = newMessage;
+      surprise.style.display = "block";
+      // Optional: Change button text after click
+      button.textContent = "Show Another Wish!";
+    }
+  </script>
+</body>
+
+</html>
